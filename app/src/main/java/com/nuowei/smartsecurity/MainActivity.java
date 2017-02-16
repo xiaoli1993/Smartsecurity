@@ -4,9 +4,14 @@ package com.nuowei.smartsecurity;/**
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.kymjs.rxvolley.client.HttpParams;
@@ -32,6 +37,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout activityMain;
+    FeedbackAgent agent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         activityMain = (LinearLayout) findViewById(R.id.activity_main);
         findViewById(R.id.b_Login).setOnClickListener(this);
+        agent = new FeedbackAgent(this);
+        agent.sync();
     }
 
     // url地址
@@ -73,45 +81,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                params.put("email", "554674787@qq.com");
 //                params.put("corp_id", corp_id);
 //                params.put("password", "xiaoli.");
+//                AVObject testObject = new AVObject("TestObject");
+//                testObject.put("ois","肖力!");
+//                testObject.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(AVException e) {
+//                        if(e == null){
+//                            Log.d("saved","success!");
+//                        }
+//                    }
+//                });
 
-                HttpParams params = new HttpParams();
-                JSONObject paramJson = new JSONObject();
-                try {
-                    paramJson.put("email", "554674787@qq.com");
-                    paramJson.put("corp_id", corp_id);
-                    paramJson.put("password", "xiaoli");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                params.putJsonParams(paramJson.toString());
-
-
-                new RxVolley.Builder()
-                        .url(LoginUrl)
-                        .httpMethod(RxVolley.Method.POST) //default GET or POST/PUT/DELETE/HEAD/OPTIONS/TRACE/PATCH
-                        .cacheTime(6) //default: get 5min, post 0min
-                        .contentType(RxVolley.ContentType.JSON)//default FORM or JSON
-                        .params(params)
-                        .shouldCache(true) //default: get true, post false
-                        .callback(new HttpCallback() {
-                            @Override
-                            public void onSuccess(String t) {
-                                MyApp.getLogger().d("参数：" + t);
-                            }
-
-                            @Override
-                            public void onFailure(int errorNo, String strMsg) {
-                                MyApp.getLogger().e("参数：" + "errorNo:" + errorNo);
-                            }
-
-                            @Override
-                            public void onFailure(VolleyError error) {
-                                MyApp.getLogger().e("参数：" + "error:" + error.getMessage());
-                            }
-                        })
-                        .encoding("UTF-8") //default
-                        .doTask();
+                agent.startDefaultThreadActivity();
+//                HttpParams params = new HttpParams();
+//                JSONObject paramJson = new JSONObject();
+//                try {
+//                    paramJson.put("email", "554674787@qq.com");
+//                    paramJson.put("corp_id", corp_id);
+//                    paramJson.put("password", "xiaoli");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                params.putJsonParams(paramJson.toString());
+//
+//
+//                new RxVolley.Builder()
+//                        .url(LoginUrl)
+//                        .httpMethod(RxVolley.Method.POST) //default GET or POST/PUT/DELETE/HEAD/OPTIONS/TRACE/PATCH
+//                        .cacheTime(6) //default: get 5min, post 0min
+//                        .contentType(RxVolley.ContentType.JSON)//default FORM or JSON
+//                        .params(params)
+//                        .shouldCache(true) //default: get true, post false
+//                        .callback(new HttpCallback() {
+//                            @Override
+//                            public void onSuccess(String t) {
+//                                MyApp.getLogger().d("参数：" + t);
+//                            }
+//
+//                            @Override
+//                            public void onFailure(int errorNo, String strMsg) {
+//                                MyApp.getLogger().e("参数：" + "errorNo:" + errorNo);
+//                            }
+//
+//                            @Override
+//                            public void onFailure(VolleyError error) {
+//                                MyApp.getLogger().e("参数：" + "error:" + error.getMessage());
+//                            }
+//                        })
+//                        .encoding("UTF-8") //default
+//                        .doTask();
                 break;
         }
     }

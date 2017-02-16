@@ -16,6 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nuowei.smartsecurity.R;
+
 /**
  * Created by flb on 16/5/24.
  */
@@ -74,7 +76,7 @@ public class DragGridView extends ViewGroup {
     }
 
     private void init(Context context, AttributeSet attrs){
-        TypedArray ta = context.obtainStyledAttributes(attrs,R.styleable.DragGirdView);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DragGirdView);
         mLayoutManager.mColumn = ta.getInteger(R.styleable.DragGirdView_column_num, 3);
         ta.recycle();
 

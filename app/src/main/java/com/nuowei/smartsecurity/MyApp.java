@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.util.Log;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.jiongbull.jlog.Logger;
 import com.jiongbull.jlog.constant.LogLevel;
 import com.jiongbull.jlog.constant.LogSegment;
@@ -158,6 +159,9 @@ public class MyApp extends LitePalApplication implements XlinkNetListener {
                 .setPackagedLevel(0)
                 .setStorage(null)
                 .build();
+        AVOSCloud.initialize(this,"PUfaNAwuo1oW0qx7MRbNPVh8-gzGzoHsz","1zVJl0bgigUQIUl2wVPleRDI");
+        AVOSCloud.setDebugLogEnabled(true);
+
     }
 
     public static Logger getLogger() {
